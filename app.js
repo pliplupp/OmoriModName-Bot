@@ -1,7 +1,7 @@
 const { prefix, token } = require("./config.json");
 const fs = require("fs");
 const modnames = require('./modnames.json');
-const { Client, Partials, Collection } = require('discord.js');
+const { Client, Partials, Collection, Status, PresenceUpdateStatus, ActivityType } = require('discord.js');
 const {GatewayIntentBits} = require("discord-api-types/v9");
 const bot = new Client({
     intents: [
@@ -22,6 +22,7 @@ const bot = new Client({
 
 // Create a collection to store commands inside the bot object
 bot.commands = new Collection();
+
 
 // Load Command files from commands folder
 const commandFiles = fs.readdirSync('./commands/').filter(f => f.endsWith('.js'))
@@ -72,16 +73,51 @@ function checkStress(message){
     };
     return false;
 }
+function checkAfraid(message){
+    var msg = message.content;
+    for(var i = 0; i<modnames.afraid.length;i++){
+        if(msg.toLowerCase().includes(modnames.afraid[i].toLowerCase())){
+            console.log("afraid");
+            return true;
+        }
+    };
+    return false;
+}
+function checkBurger(message){
+    var msg = message.content;
+    for(var i = 0; i<modnames.burgers.length;i++){
+        if(msg.toLowerCase().includes(modnames.burgers[i].toLowerCase())){
+            console.log("burgers on my mind");
+            return true;
+        }
+    };
+    return false;
+}
 
 bot.on('messageCreate', (message) => {
-    if(checkModNames(message)){
+    if(checkModNames(message))
+        {
         message.react("🛎️");
-    }
-    if(checkStress(message)){
-        message.react('1506270025496137849');
+        }
+    if(checkStress(message))
+        {
+        //message.react('1506270025496137849');
+        }
+    if(checkAfraid(message))
+        {
+            //message.react('1506270482196860998')
+        }
+    if(checkBurger(message))
+        {
+            message.react("🍔")
+        }
+
+    if(message.mentions.has(bot.user)){
+        message.reply("Hello! This is a bot made by Pliplupp. <a:sunny_spin:1507091381900804198>")
     }
 
 });
+
 
 // Token needed in config.json
 bot.login(token);

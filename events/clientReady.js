@@ -8,7 +8,15 @@ module.exports = {
         console.log(`${bot.user.username} is online on ${bot.guilds.cache.size} servers!`);
 
         // Set the Presence of the bot user to show 'Playing: My code'
-        bot.user.setPresence({ activities: [{ name: 'My code'}] });
+        bot.user.setPresence({
+          activities:[{
+              name: 'i omor',
+              type: 4,
+              state: '🍔'
+
+          }],
+          status: 'online',
+      });
 
       if (!bot.application?.owner) await bot.application?.fetch()
 
