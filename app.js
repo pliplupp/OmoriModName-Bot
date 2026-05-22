@@ -61,6 +61,10 @@ function checkModNames(message){
             return true;
         }
     };
+    if((msg.toLowerCase().includes("broke")) && (msg.toLowerCase().includes("dream"))){
+            console.log("broken dreams");
+            return true;
+        }
     return false;
 }
 function checkStress(message){
@@ -95,25 +99,29 @@ function checkBurger(message){
 }
 
 bot.on('messageCreate', (message) => {
+    if(message.author.bot){return;}
     if(checkModNames(message))
         {
-        message.react("🛎️");
+            message.react("🛎️");
         }
     if(checkStress(message))
         {
-        //message.react('1506270025496137849');
+            message.react('1507212231409008661');
         }
     if(checkAfraid(message))
         {
-            //message.react('1506270482196860998')
+            if(Math.floor(Math.random() * (2 - 1 + 1) + 1) == 2) // Get random number, 1 or 2
+                message.react('1507212206998163456'); // If 2, react with Omori
+            else
+                message.react('1507367048294957197'); // If 1, use Sunny
         }
     if(checkBurger(message))
         {
-            message.react("🍔")
+            message.react("🍔");
         }
 
     if(message.mentions.has(bot.user)){
-        message.reply("Hello! This is a bot made by Pliplupp. <a:sunny_spin:1507091381900804198>")
+        message.reply("Hello! This is <@!1506067533172707459>, a bot made by Pliplupp. <a:sunny_spin:1507091381900804198>")
     }
 
 });
